@@ -293,6 +293,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
+            align-items: start;
         }
 
         .carousel-container {
@@ -765,20 +766,26 @@
 
 <script>
     // Configuration - Edit these values as needed
-    const CONFIG = {
-        upiId: '8802280767@ptsbi',
-        merchantName: 'Indica Inc',
-        whatsappNumber: '917385280767', // Replace with your WhatsApp business number (with country code, no + or spaces)
-        themeColor: '#87CEEB' // Options: '#87CEEB' (blue), '#90EE90' (green), '#FFD700' (yellow), '#FFB6C1' (pink), '#FFA07A' (red)
-    };
+    let CONFIG = {};
+
+    async function loadConfig() {
+        try {
+            const response = await fetch('config.json');
+            CONFIG = await response.json();
+            applyThemeFromConfig();
+        } catch (e) {
+            console.error("Error loading config.json", e);
+        }
+    }
+
 
     let products = [];
     let cart = [];
     let categories = [];
 
-    function init() {
+    async function init() {
         loadCart();
-        applyThemeFromConfig();
+        await loadConfig();
         loadDataFromXLSX();
     }
 
@@ -795,6 +802,8 @@
             const jsonData = XLSX.utils.sheet_to_json(firstSheet);
 
             products = jsonData.map(row => ({
+                isActive: row['isActive'] == 1,
+                isActive: row['isActive'] == 1,
                 itemCode: row['Item Code'] || row['itemCode'],
                 itemName: row['Item Name'] || row['itemName'],
                 category: row['Category'] || row['category'],
@@ -804,7 +813,7 @@
                 discountPercentage: parseFloat(row['Discount Percentage'] || row['discountPercentage'] || 0),
                 primaryImage: 'images/' + (row['Primary Image'] || row['primaryImage']),
                 secondaryImages: (row['Secondary Images'] || row['secondaryImages'] || '').split(',').map(s => 'images/' + s.trim()).filter(s => s !== 'images/')
-            }));
+            })).filter(p => p.isActive);
 
             categories = [...new Set(products.map(p => p.category))];
             updateNav();
@@ -1263,6 +1272,8 @@
             const jsonData = XLSX.utils.sheet_to_json(firstSheet);
 
             products = jsonData.map(row => ({
+                isActive: row['isActive'] == 1,
+                isActive: row['isActive'] == 1,
                 itemCode: row['Item Code'] || row['itemCode'],
                 itemName: row['Item Name'] || row['itemName'],
                 category: row['Category'] || row['category'],
@@ -1272,7 +1283,7 @@
                 discountPercentage: parseFloat(row['Discount Percentage'] || row['discountPercentage'] || 0),
                 primaryImage: 'images/' + (row['Primary Image'] || row['primaryImage']),
                 secondaryImages: (row['Secondary Images'] || row['secondaryImages'] || '').split(',').map(s => 'images/' + s.trim()).filter(s => s !== 'images/')
-            }));
+            })).filter(p => p.isActive);
 
             categories = [...new Set(products.map(p => p.category))];
             updateNav();

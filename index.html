@@ -293,7 +293,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
-            align-items: start;
+
         }
 
         .carousel-container {
@@ -708,19 +708,39 @@
             background: var(--primary-color);
         }
 
-        .carousel-main {
-            width: 100%;
-            max-height: 500px;
-            height: auto;
-            object-fit: contain;
+        .product-detail {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            overflow: visible;   /* ensure content flows */
         }
 
+        .product-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: flex-start;  /* top align */
+        }
+
+        .carousel-main {
+            width: 100%;
+            height: auto;          /* remove fixed height */
+            max-height: none;      /* no max height limit */
+            object-fit: contain;   /* maintain aspect ratio */
+            display: block;
+
+        }
+
+
+        /* On mobile, stack everything */
         @media (max-width: 768px) {
             .product-detail-content {
                 grid-template-columns: 1fr;
             }
             .carousel-main {
-                max-height: 350px;
+                width: 100%;
+                height: auto;   /* let image grow naturally */
             }
         }
 
@@ -782,7 +802,7 @@
     </div>
     <div class="footer-content">
         <div class="footer-bottom">
-            <p>&copy; 2025 Indica Inc. All rights reserved.</p>
+            <p>&copy; 2023 Indica Inc. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -946,13 +966,13 @@
         main.innerHTML = `
                 <div class="hero">
                     <h1>Welcome to Indica Inc.</h1>
-                    <p>Discover amazing products at great prices</p>
+                    <p>Discover amazing books at great prices</p>
                 </div>
                 <h2 style="margin-bottom: 1.5rem;">Shop by Category</h2>
                 <div class="category-grid">
                     ${categories.map(cat => `
                         <a href="#" class="category-card" onclick="showCategory('${cat}'); return false;">
-                            <div style="font-size: 3rem;">📦</div>
+                            <div style="font-size: 3rem;">📚</div>
                             <h3>${cat}</h3>
                             <p>${products.filter(p => p.category === cat).length} products</p>
                         </a>

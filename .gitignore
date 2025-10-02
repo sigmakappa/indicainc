@@ -2,3 +2,6 @@
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/inspectionProfiles/Project_Default.xml
 .idea/modules.xml
+data.csv
+data.xlsx
+LLM_data.csv

@@ -782,10 +782,8 @@
             applyThemeFromConfig();
         } catch (e) {
             console.error("Error loading config.json", e);
-
         }
     }
-
 
     let products = [];
     let cart = [];
@@ -1212,7 +1210,6 @@
     function generateQRCode(upiString) {
         // Use a QR code generation API service
         const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}`;
-
         const qrContainer = document.querySelector('#qrCodeContainer .qr-code');
         qrContainer.innerHTML = `<img src="${qrApiUrl}" alt="UPI QR Code" style="width: 250px; height: 250px;">`;
     }
@@ -1280,7 +1277,6 @@
 
             products = jsonData.map(row => ({
                 isActive: row['isActive'] == 1,
-
                 itemCode: row['Item Code'] || row['itemCode'],
                 itemName: row['Item Name'] || row['itemName'],
                 category: row['Category'] || row['category'],

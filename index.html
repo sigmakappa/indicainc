@@ -13,6 +13,34 @@
             box-sizing: border-box;
         .category-image {
             height: 150px;
+        .info-page {
+            padding: 1.5rem;
+        }
+
+        .info-page h2 {
+            font-size: 1.5rem;
+        }
+
+        .info-page h3 {
+            font-size: 1.1rem;
+        }
+
+        .faq-question {
+            font-size: 1rem;
+        }
+
+        .whatsapp-link {
+            display: block;
+            text-align: center;
+        }
+
+        .category-image {
+            height: 150px;
+        }
+
+        .category-info {
+            padding: 1rem;
+        }
         }
 
         .category-info {
@@ -991,6 +1019,100 @@
             color: #666;
         }
 
+        .info-page {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-page h2 {
+            color: var(--primary-dark);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .info-page h2:first-child {
+            margin-top: 0;
+        }
+
+        .info-page h3 {
+            color: var(--text-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-page p, .info-page li {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .info-page ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-page li {
+            margin-bottom: 0.75rem;
+        }
+
+        .info-page strong {
+            color: var(--text-color);
+        }
+
+        .info-page a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .info-page a:hover {
+            text-decoration: underline;
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+
+        .whatsapp-link:hover {
+            background: #1da851;
+            text-decoration: none;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer {
+            color: #555;
+            line-height: 1.8;
+        }
+
         .back-btn {
             display: inline-block;
             margin-bottom: 1rem;
@@ -1046,18 +1168,18 @@
         <div class="footer-section">
             <h4>Customer Service</h4>
             <ul class="footer-links">
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Shipping Info</a></li>
-                <li><a href="#">Returns</a></li>
-                <li><a href="#">FAQ</a></li>
+                <li><a href="#" onclick="showInfoPage('contact'); return false;">Contact Us</a></li>
+                <li><a href="#" onclick="showInfoPage('shipping'); return false;">Shipping Info</a></li>
+                <li><a href="#" onclick="showInfoPage('returns'); return false;">Returns</a></li>
+                <li><a href="#" onclick="showInfoPage('faq'); return false;">FAQ</a></li>
             </ul>
         </div>
         <div class="footer-section">
             <h4>About</h4>
             <ul class="footer-links">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#" onclick="showInfoPage('about'); return false;">About Us</a></li>
+                <li><a href="#" onclick="showInfoPage('privacy'); return false;">Privacy Policy</a></li>
+                <li><a href="#" onclick="showInfoPage('terms'); return false;">Terms of Service</a></li>
             </ul>
         </div>
     </div>
@@ -1597,15 +1719,15 @@
 
                     <div class="security-badges">
                         <div class="security-badge">
-                            <span class="security-icon">✔</span>
+                            <span class="security-icon">✓</span>
                             <span>100% Secure</span>
                         </div>
                         <div class="security-badge">
-                            <span class="security-icon">✔</span>
+                            <span class="security-icon">✓</span>
                             <span>Easy Returns</span>
                         </div>
                         <div class="security-badge">
-                            <span class="security-icon">✔</span>
+                            <span class="security-icon">✓</span>
                             <span>Trusted by 1000+ Customers</span>
                         </div>
                     </div>
@@ -1631,6 +1753,224 @@
     function updateCartCount() {
         const count = cart.reduce((sum, item) => sum + item.quantity, 0);
         document.getElementById('cartCount').textContent = count;
+    }
+
+    function showInfoPage(section) {
+        window.scrollTo(0, 0);
+        const main = document.getElementById('mainContent');
+
+        const contactEmail = 'indicastore.help@gmail.com';
+        const whatsappMsg = encodeURIComponent("Hi! I'd like to know more about your books. Could you please help me?");
+        const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${whatsappMsg}`;
+
+        let content = '';
+
+        if (section === 'contact') {
+            content = `
+                <h2>🤝 Contact Us</h2>
+                <p><strong>Need help or have questions?</strong></p>
+                <p>We're here to help! The fastest way to reach us is through WhatsApp. Our team typically responds within a few hours during business days.</p>
+                <a href="${whatsappUrl}" class="whatsapp-link" target="_blank">💬 Chat with us on WhatsApp</a>
+                <p>You can also email us at: <strong><a href="mailto:${contactEmail}">${contactEmail}</a></strong></p>
+                <p>Our business hours: Monday to Saturday, 10 AM - 7 PM IST</p>
+            `;
+        } else if (section === 'shipping') {
+            content = `
+                <h2>📦 Shipping Information</h2>
+                <h3>How we ship your orders:</h3>
+                <p>We work with multiple shipping partners including India Post, Delhivery, DTDC, and local courier services to get your books to you safely and affordably.</p>
+
+                <h3>How it works:</h3>
+                <ul>
+                    <li>We choose the best shipping partner based on your location, current weather conditions, traffic situations, and seasonal demand</li>
+                    <li>This helps us offer you the most reliable delivery at the best possible price</li>
+                    <li>Shipping charges vary based on your location and package weight</li>
+                    <li><strong>We'll share the exact shipping cost with you before we dispatch your order</strong> - no surprises!</li>
+                    <li>Once shipped, you'll receive tracking information via WhatsApp</li>
+                </ul>
+
+                <h3>Delivery time:</h3>
+                <ul>
+                    <li>Metro cities: 3-5 business days</li>
+                    <li>Other cities: 5-7 business days</li>
+                    <li>Remote areas: 7-10 business days</li>
+                </ul>
+
+                <p><em>Note: During festive seasons or adverse weather, deliveries may take a bit longer. We appreciate your patience!</em></p>
+            `;
+        } else if (section === 'returns') {
+            content = `
+                <h2>🔄 Returns & Refunds</h2>
+                <p><strong>Yes, we accept returns!</strong> We want you to be happy with your purchase.</p>
+
+                <h3>Our return policy:</h3>
+
+                <p><strong>✓ Return window:</strong> You can return items within 7 days of delivery</p>
+
+                <p><strong>✓ Condition requirements:</strong></p>
+                <ul>
+                    <li>Books must be in the same condition as described in the listing</li>
+                    <li>If the book condition is significantly different from what we described, we'll gladly accept the return</li>
+                    <li>No additional damage should occur after delivery (new marks, tears, stains, etc.)</li>
+                    <li>Original packaging preferred (but not mandatory if you've discarded it)</li>
+                </ul>
+
+                <p><strong>✓ Return shipping:</strong> Customer bears the return shipping cost - you can use any courier service you prefer</p>
+
+                <p><strong>✓ How to initiate a return:</strong></p>
+                <ol>
+                    <li>Contact us on WhatsApp within 7 days of receiving your order</li>
+                    <li>Share photos of the product and explain the issue</li>
+                    <li>We'll confirm and share our return address</li>
+                    <li>Ship the item back to us</li>
+                    <li>Once we receive and verify the condition, we'll process your refund</li>
+                </ol>
+
+                <p><strong>✓ Refund process:</strong></p>
+                <ul>
+                    <li>Refunds are processed within 3-5 business days after we receive the returned item</li>
+                    <li>Money will be refunded to your original payment method (UPI/bank account)</li>
+                </ul>
+
+                <p><strong>✓ Non-returnable items:</strong></p>
+                <ul>
+                    <li>Books with new damage caused after delivery</li>
+                    <li>Books that match the condition described in our listing</li>
+                    <li>Sale or clearance items marked "Final Sale"</li>
+                </ul>
+
+                <p><strong>No hard feelings!</strong> We understand that sometimes a book isn't what you expected, especially if the condition doesn't match our description. We're a small business doing our best to keep our customers happy, and we take full responsibility if we've misrepresented any item.</p>
+            `;
+        } else if (section === 'faq') {
+            content = `
+                <h2>❓ Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">1. Are all your books authentic?</div>
+                    <div class="faq-answer">Yes, absolutely! We only sell genuine books. All our books are pre-loved and carefully selected for quality. We never deal in pirated or counterfeit copies.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">2. How do you describe book conditions?</div>
+                    <div class="faq-answer">We carefully inspect and describe the condition of every book in the product listing. This includes notes about cover condition, page quality, markings, highlights, or any wear and tear. What you see in the description is exactly what you'll receive.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">3. Can I order books not listed on your website?</div>
+                    <div class="faq-answer">Possibly! If you're looking for a specific title, send us a message on WhatsApp with the book name and author. We'll check our inventory and let you know if we have it or can source it for you, along with pricing and delivery time.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">4. How do I track my order?</div>
+                    <div class="faq-answer">Once your order is shipped, we'll send you the tracking number and courier partner details via WhatsApp. You can track your package on the courier's website or app.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">5. What payment methods do you accept?</div>
+                    <div class="faq-answer">Currently, we accept UPI payments (Google Pay, PhonePe, Paytm, etc.). We share our UPI ID during the order confirmation process on WhatsApp.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">6. Do you ship all over India?</div>
+                    <div class="faq-answer">Yes! We ship to all serviceable PIN codes across India. If you're in a remote location, please confirm with us on WhatsApp before placing your order, and we'll check serviceability.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">7. My book arrived in worse condition than described. What should I do?</div>
+                    <div class="faq-answer">We sincerely apologize if that happens! Please take photos immediately and contact us on WhatsApp within 24 hours. If the book condition doesn't match our description, we'll arrange a replacement or full refund at no extra cost to you. We take our condition descriptions seriously.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">8. My book arrived damaged during shipping. What should I do?</div>
+                    <div class="faq-answer">We're sorry to hear that! Please don't accept the delivery if the package looks damaged. If you've already accepted it, take photos immediately and contact us on WhatsApp within 24 hours. We'll arrange a replacement or full refund.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">9. Can I cancel my order?</div>
+                    <div class="faq-answer">Yes, you can cancel before we ship. Once shipped, you'll need to follow the return process. Contact us on WhatsApp as soon as possible if you want to cancel.</div>
+                </div>
+
+                <p style="margin-top: 2rem;"><strong>Still have questions?</strong></p>
+                <p>No problem! Just reach out to us on WhatsApp or email us at <a href="mailto:${contactEmail}">${contactEmail}</a> - we're always happy to help.</p>
+            `;
+        } else if (section === 'about') {
+            content = `
+                <h2>📚 About Indica Inc.</h2>
+                <p>Welcome to Indica Inc., your trusted source for quality pre-loved books!</p>
+                <p>We're passionate book lovers dedicated to giving great books a second life. Every book in our collection is carefully selected, inspected, and honestly described so you know exactly what you're getting.</p>
+                <p>Our mission is simple: to make quality reading affordable and accessible while promoting sustainable consumption. By giving books a second home, we're not just saving you money - we're helping the environment too.</p>
+                <p>Thank you for supporting our small business and happy reading!</p>
+            `;
+        } else if (section === 'privacy') {
+            content = `
+                <h2>🔒 Privacy Policy</h2>
+                <p>At Indica Inc., we respect your privacy and are committed to protecting your personal information.</p>
+
+                <h3>Information We Collect:</h3>
+                <ul>
+                    <li>Name, phone number, and delivery address for order fulfillment</li>
+                    <li>Payment information (processed securely through UPI)</li>
+                    <li>Communication history via WhatsApp and email</li>
+                </ul>
+
+                <h3>How We Use Your Information:</h3>
+                <ul>
+                    <li>To process and deliver your orders</li>
+                    <li>To communicate with you about your orders</li>
+                    <li>To improve our service</li>
+                </ul>
+
+                <h3>Information Security:</h3>
+                <p>We never share your personal information with third parties except for shipping partners necessary to deliver your order. Your data is stored securely and used only for business purposes.</p>
+
+                <p>For any privacy concerns, please contact us at <a href="mailto:${contactEmail}">${contactEmail}</a></p>
+            `;
+        } else if (section === 'terms') {
+            content = `
+                <h2>📋 Terms of Service</h2>
+
+                <h3>By using our website and services, you agree to:</h3>
+
+                <p><strong>Orders and Payments:</strong></p>
+                <ul>
+                    <li>All orders are confirmed via WhatsApp</li>
+                    <li>Payment must be made before shipping</li>
+                    <li>Prices and availability are subject to change</li>
+                </ul>
+
+                <p><strong>Product Descriptions:</strong></p>
+                <ul>
+                    <li>We strive for accurate descriptions of book conditions</li>
+                    <li>All books are pre-owned unless otherwise stated</li>
+                    <li>Photos are representative; actual items may vary slightly</li>
+                </ul>
+
+                <p><strong>Shipping and Delivery:</strong></p>
+                <ul>
+                    <li>Delivery times are estimates and not guaranteed</li>
+                    <li>We're not responsible for courier delays beyond our control</li>
+                    <li>Risk of loss passes to you upon delivery</li>
+                </ul>
+
+                <p><strong>Returns:</strong></p>
+                <ul>
+                    <li>See our Returns & Refunds policy for details</li>
+                    <li>We reserve the right to refuse returns that don't meet our policy criteria</li>
+                </ul>
+
+                <p><strong>Limitation of Liability:</strong></p>
+                <p>As a small business, we do our best but cannot be held liable for indirect damages or losses. Our maximum liability is limited to the purchase price of the product.</p>
+
+                <p>For questions about these terms, contact us at <a href="mailto:${contactEmail}">${contactEmail}</a></p>
+            `;
+        }
+
+        main.innerHTML = `
+            <a href="#" class="back-btn" onclick="showHome(); return false;">← Back to Home</a>
+            <div class="info-page">
+                ${content}
+            </div>
+        `;
     }
 
     init();

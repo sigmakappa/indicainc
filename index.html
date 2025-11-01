@@ -523,6 +523,9 @@
         .cart-table th {
             background: var(--primary-light);
             font-weight: bold;
+            /* smaller font to avoid wrapping and keep headers on one line */
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
 
         .cart-item-image {
@@ -1776,16 +1779,22 @@
     }
 
     function saveCart() {
-        const cartData = JSON.stringify(cart);
-        window.cartData = cartData;
+        // Persist cart in localStorage so page refresh does not clear it
+        try {
+            const cartData = JSON.stringify(cart);
+            localStorage.setItem('cartData', cartData);
+        } catch (e) {
+            console.error('Error saving cart to localStorage', e);
+        }
     }
 
     function loadCart() {
         try {
-            const cartData = window.cartData || '[]';
+            const cartData = localStorage.getItem('cartData') || '[]';
             cart = JSON.parse(cartData);
             updateCartCount();
         } catch (e) {
+            console.error('Error loading cart from localStorage', e);
             cart = [];
         }
     }
